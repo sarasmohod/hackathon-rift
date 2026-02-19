@@ -2,9 +2,10 @@
 
 import { useState } from 'react';
 import dynamic from 'next/dynamic';
-import { UploadCloud, ShieldAlert, Activity, FileJson, AlertOctagon, Search, Cpu, Network, Terminal, Info, X, Link as LinkIcon } from 'lucide-react';
+import { UploadCloud, ShieldAlert, Activity, FileJson, AlertOctagon, Search, Cpu, Network, Terminal, Info, X, Link as LinkIcon, Download } from 'lucide-react';
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell } from 'recharts';
 
+// Bypass SSR for the physics engine
 const ForceGraph2D = dynamic(() => import('react-force-graph-2d'), { ssr: false });
 
 export default function UltimateCyberDashboard() {
@@ -15,6 +16,7 @@ export default function UltimateCyberDashboard() {
   const [activeTab, setActiveTab] = useState('graph');
   const [scanText, setScanText] = useState("SYSTEM IDLE");
   
+  // Interactive States
   const [hoverNode, setHoverNode] = useState<any>(null);
   const [selectedNode, setSelectedNode] = useState<any>(null);
 
@@ -73,10 +75,35 @@ export default function UltimateCyberDashboard() {
         setScanText("THREAT NEUTRALIZED.");
       }, 3000);
     } catch (error) {
-      alert("Backend Error!");
+      alert("Backend Error! Is it running?");
       setLoading(false);
       setScanText("SYSTEM ERROR");
     }
+  };
+
+  // 🔥 YAHAN HAI NAYA DOWNLOAD FUNCTION JO EXACT FORMAT MATCH KAREGA
+  const downloadJSON = () => {
+    if (!results || !results.analysis) return;
+    
+    // Create a deep copy so we don't mess up the UI data
+    const exportPayload = JSON.parse(JSON.stringify(results.analysis));
+    
+    // Strip out 'metadata' so it exactly matches the Hackathon JSON requirement image
+    exportPayload.suspicious_accounts = exportPayload.suspicious_accounts.map((acc: any) => {
+      const { metadata, ...exactRubricFormat } = acc;
+      return exactRubricFormat;
+    });
+
+    // Create a Blob and force download (bypasses browser URL limits)
+    const blob = new Blob([JSON.stringify(exportPayload, null, 2)], { type: 'application/json' });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'mule_detection_output.json';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    window.URL.revokeObjectURL(url);
   };
 
   return (
@@ -263,7 +290,7 @@ export default function UltimateCyberDashboard() {
                                  </div>
                               </div>
 
-                              {/* NEW RECHARTS BAR CHART */}
+                              {/* RECHARTS BAR CHART */}
                               {selectedNode.metadata && (
                                 <div className="p-4 bg-[#050505] rounded border border-slate-800">
                                   <label className="text-[10px] text-slate-500 uppercase font-bold mb-4 block tracking-widest">Volume Telemetry (USD)</label>
@@ -289,7 +316,7 @@ export default function UltimateCyberDashboard() {
                                 </div>
                               )}
 
-                              {/* NEW DIRECT CONNECTION LEDGER */}
+                              {/* DIRECT CONNECTION LEDGER */}
                               <div>
                                  <label className="text-[10px] text-slate-500 uppercase font-bold mb-2 block tracking-widest">Network Topology Links</label>
                                  <div className="bg-[#050505] border border-slate-800 rounded max-h-40 overflow-y-auto">
@@ -334,6 +361,7 @@ export default function UltimateCyberDashboard() {
                           <tr className="border-b border-cyan-900/50 text-[10px] font-mono text-cyan-600 tracking-widest uppercase">
                             <th className="px-4 py-3">Ring Designation</th>
                             <th className="px-4 py-3">Vector Typology</th>
+                            <th className="px-4 py-3 text-center">Member Count</th> 
                             <th className="px-4 py-3">Threat Level</th>
                             <th className="px-4 py-3">Compromised Nodes</th>
                           </tr>
@@ -343,7 +371,8 @@ export default function UltimateCyberDashboard() {
                             <tr key={idx} className="hover:bg-cyan-950/20 transition-colors group">
                               <td className="px-4 py-4 font-mono text-sm text-cyan-300">{ring.ring_id}</td>
                               <td className="px-4 py-4"><span className="px-2 py-1 bg-cyan-950 text-cyan-400 border border-cyan-800 rounded text-[10px] font-mono tracking-wider">{ring.pattern_type.replace('_', ' ').toUpperCase()}</span></td>
-                              <td className="px-4 py-4"><div className="flex items-center gap-3"><span className="text-red-400 font-mono font-bold">{ring.risk_score.toFixed(1)}</span></div></td>
+                              <td className="px-4 py-4 text-center font-mono text-cyan-100 font-bold text-lg">{ring.member_accounts.length}</td>
+                              <td className="px-4 py-4"><div className="flex items-center gap-3"><span className="text-red-400 font-mono font-bold">{ring.risk_score.toFixed(1)}</span><div className="w-24 bg-gray-900 rounded-full h-1 overflow-hidden"><div className="bg-gradient-to-r from-orange-500 to-red-600 h-full shadow-[0_0_10px_rgba(220,38,38,0.8)]" style={{ width: `${ring.risk_score}%` }}></div></div></div></td>
                               <td className="px-4 py-4 text-cyan-600/70 text-xs font-mono truncate max-w-[200px] group-hover:text-cyan-400 transition-colors">{ring.member_accounts.join(', ')}</td>
                             </tr>
                           ))}
@@ -352,11 +381,26 @@ export default function UltimateCyberDashboard() {
                     </div>
                   )}
 
-                  {/* JSON TAB */}
+                  {/* JSON TAB (FIXED DOWNLOAD BUTTON) */}
                   {activeTab === 'json' && (
                     <div className="p-6 bg-[#050505] h-[600px] overflow-auto relative">
-                      <a href={`data:text/json;charset=utf-8,${encodeURIComponent(JSON.stringify(results.analysis, null, 2))}`} download="mule_detection_output.json" className="absolute top-6 right-6 text-[10px] font-mono tracking-widest bg-cyan-950/50 hover:bg-cyan-900 text-cyan-300 px-4 py-2 rounded transition-all border border-cyan-800">[ DOWNLOAD ARTIFACT ]</a>
-                      <pre className="text-emerald-400 font-mono text-xs leading-relaxed opacity-90">{JSON.stringify(results.analysis, null, 2)}</pre>
+                      <button 
+                        onClick={downloadJSON}
+                        className="absolute top-6 right-6 text-[10px] font-mono tracking-widest bg-cyan-950/50 hover:bg-cyan-900 text-cyan-300 px-4 py-2 rounded transition-all border border-cyan-800 flex items-center gap-2"
+                      >
+                        <Download className="w-3 h-3" />
+                        [ DOWNLOAD ARTIFACT ]
+                      </button>
+                      <pre className="text-emerald-400 font-mono text-xs leading-relaxed opacity-90 mt-8">
+                        {/* We display the sanitized output so what they see is exactly what downloads */}
+                        {JSON.stringify({
+                          ...results.analysis,
+                          suspicious_accounts: results.analysis.suspicious_accounts.map((acc: any) => {
+                            const { metadata, ...rest } = acc;
+                            return rest;
+                          })
+                        }, null, 2)}
+                      </pre>
                     </div>
                   )}
                 </div>
