@@ -9,16 +9,16 @@ Money muling networks employ complex, multi-layered structuring to obscure the f
 ⚙️ Tech Stack
 
 Backend (The Intelligence Layer)
-Python
-FastAPI – API routing & system orchestration
-Pandas – Data preprocessing & rolling time-window logic
+Python,
+FastAPI – API routing & system orchestration,
+Pandas – Data preprocessing & rolling time-window logic,
 NetworkX – Graph modeling & DFS-based pattern detection
 
 
 Frontend (The Visualization Layer)
-React / Next.js
-Tailwind CSS
-react-force-graph-2d – Physics-based interactive fraud network visualization
+React / Next.js,
+Tailwind CSS,
+react-force-graph-2d – Physics-based interactive fraud network visualization,
 Recharts – Transaction telemetry & analytics dashboards
 
 ## ⚙️ Core Architecture
