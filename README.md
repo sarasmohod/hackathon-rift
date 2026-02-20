@@ -49,7 +49,7 @@ Detects multi-hop chains where funds jump through "ghost" accounts.
 2. `npm install`
 3. `npm run dev` (Runs on port 3000)
 
-Team Membes
+Team Membes:
 Saras Mohod,
 Vedant Kakde,
 Yash Pise
