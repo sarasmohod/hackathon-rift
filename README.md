@@ -1,6 +1,6 @@
 # 👁️‍🗨️ T.R.A.C.E. : Topology Resolution & Anomaly Computation Engine
-**Live Web Application: https://hackathonrift-1.onrender.com/ 
-**LinkedIn Architecture Demo:** [Insert Video Link Here]
+Live Web Application: https://hackathonrift-1.onrender.com/ 
+LinkedIn Architecture Demo: https://www.linkedin.com/posts/saras-mohod-a81699242_rift26-rifthackathon-moneymulingdetection-activity-7430407698476736512-dnKw?utm_source=share&utm_medium=member_desktop&rcm=ACoAADxCA8EBEkAD_Q86An71kZ9TTPh7KCru1MA
 
 ## 📖 Mission Overview
 Money muling networks employ complex, multi-layered structuring to obscure the flow of illicit funds. Traditional relational databases (SQL queries) fundamentally fail to map these deep relationships. **T.R.A.C.E.** solves this by transforming standard tabular transaction ledgers into highly optimized **Directed Multi-Graphs**, utilizing advanced physics-based rendering and mathematical topology to hunt down financial crime in real-time.
@@ -31,8 +31,6 @@ Detects multi-hop chains where funds jump through "ghost" accounts.
 * **Algorithm:** Constrained Depth-Limited Pathfinding.
 * **Constraints:** Identifies 3+ hop chains where all intermediate routing nodes actively maintain a suspiciously low transaction profile (strictly 2–3 lifetime transactions).
 
----
-
 ## 💡 Engine Innovations (Why T.R.A.C.E. is Different)
 
 1.  **Dynamic Suspicion Scoring (DRS):** Unlike traditional tools with static scores, T.R.A.C.E. computes risk based on **Volume** and **Velocity**. A $\$100,000$ cycle yields a higher threat score than a $\$500$ cycle, capping mathematically at 99.9.
@@ -49,3 +47,8 @@ Detects multi-hop chains where funds jump through "ghost" accounts.
 1. Navigate to `/frontend`.
 2. `npm install`
 3. `npm run dev` (Runs on port 3000)
+
+Team Membes
+Saras Mohod
+Vedant Kakde
+Yash Pise
