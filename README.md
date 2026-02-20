@@ -64,6 +64,47 @@ Detects multi-hop chains where funds jump through "ghost" accounts.
 2. `npm install`
 3. `npm run dev` (Runs on port 3000)
 
+📘 Usage Instructions
+
+Upload transaction dataset (CSV/Excel format).
+
+System preprocesses data using rolling time-window logic.
+
+Transactions are converted into a Directed Multi-Graph (Accounts → Nodes, Transactions → Edges).
+
+Detection algorithms run automatically:
+
+Cycle detection (circular routing)
+
+Smurfing detection (72-hour fan-in/fan-out)
+
+Layered shell chain analysis
+
+Flagged accounts are assigned dynamic suspicion scores.
+
+Users can:
+
+Visualize networks in the interactive graph view
+
+Click nodes to access detailed target dossiers
+
+Review transaction telemetry (inflow vs outflow)
+
+Apply whitelisting where necessary
+
+⚠️ Known Limitations
+
+Designed primarily for structured transaction datasets (CSV/Excel).
+
+Large-scale graphs (millions of nodes) may require distributed graph processing for optimal performance.
+
+Rule-based detection may miss highly adaptive laundering patterns without ML enhancement.
+
+False positives possible without refined whitelisting policies.
+
+Currently optimized for retrospective batch analysis, not full real-time streaming environments.
+
+
 Team Membes:
 Saras Mohod,
 Vedant Kakde,
