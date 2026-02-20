@@ -6,6 +6,19 @@ LinkedIn Architecture Demo: https://www.linkedin.com/posts/saras-mohod-a81699242
 ## 📖 Mission Overview
 Money muling networks employ complex, multi-layered structuring to obscure the flow of illicit funds. Traditional relational databases (SQL queries) fundamentally fail to map these deep relationships. **T.R.A.C.E.** solves this by transforming standard tabular transaction ledgers into highly optimized **Directed Multi-Graphs**, utilizing advanced physics-based rendering and mathematical topology to hunt down financial crime in real-time.
 
+⚙️ Tech Stack
+Backend (The Intelligence Layer)
+Python
+FastAPI – API routing & system orchestration
+Pandas – Data preprocessing & rolling time-window logic
+NetworkX – Graph modeling & DFS-based pattern detection
+
+Frontend (The Visualization Layer)
+React / Next.js
+Tailwind CSS
+react-force-graph-2d – Physics-based interactive fraud network visualization
+Recharts – Transaction telemetry & analytics dashboards
+
 ## ⚙️ Core Architecture
 T.R.A.C.E. operates on a decoupled microservice architecture:
 * **Backend (FastAPI + Python):** The heavy-lifting engine. Utilizes `NetworkX` for graph mapping and `Pandas` for massive temporal window aggregations.
